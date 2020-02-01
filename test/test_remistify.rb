@@ -16,6 +16,12 @@ class RemistifyTest < Minitest::Test
     assert_equal "2022-08-27", expiration.strftime("%Y-%m-%d")
   end #/def
 
+  def test_one_week_subscriptions_with_daily_remiss
+    #                                 remiss, issues_per_cycle, cycle_length, from
+    expiration = Remistify.expiration 7,      7,                T_1_WEEK,     "2020-02-26"
+    assert_equal "2020-03-04", expiration.strftime("%Y-%m-%d")
+  end #/def
+
   def test_one_year_twelve_issues_per_year
     #                                 remiss, issues_per_cycle, cycle_length, from
     expiration = Remistify.expiration 12,     12,               T_1_YEAR,     "2019-12-21"
