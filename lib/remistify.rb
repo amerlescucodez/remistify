@@ -7,11 +7,9 @@ class Remistify
    # @param from [String] specify a starting point in time
    # @return [DateTime]
    def self.expiration(remiss, issues, cycle, from=nil, tz=nil)
+      # puts ""
       seconds_per_cycle = cycle.to_i / issues.to_i
-      # puts "total remiss = #{remiss}"
-      # puts "issues per cycle = #{issues}"
-      # puts "cycle = #{cycle}"
-      # puts "seconds_per_cycle = #{seconds_per_cycle}"
+      # puts "remiss = #{remiss}, issues = #{issues}, cycle = #{cycle}, from = #{from}, tz = #{tz}"
       expiration = nil
       if from
          expiration = DateTime.parse(from).to_time
@@ -22,18 +20,28 @@ class Remistify
          end #/if
       end #/if-else
 
-      if remiss < 1
-         return expiration
-      end #/if
+      # if remiss < 1
+      #    return expiration
+      # end #/if
 
-      (1..remiss).each do |i|
+      range = (1..remiss)
+      if remiss <= 0
+         range = (remiss..-1) # ignore 0
+      end
+      range.each do |i|
          # puts "starting at #{expiration} and adding #{seconds_per_cycle} to that time...."
          # puts "#{i}: #{expiration}"
-         expiration = expiration + seconds_per_cycle
+         if remiss >= 1
+            expiration = expiration + seconds_per_cycle
+         else
+            expiration = expiration - seconds_per_cycle
+         end #/if-else
          # puts "expiration = #{expiration}"
          # puts ""
       end #/each
-
+      # puts "expiration = #{expiration&.strftime("%Y-%m-%d")}"
+      # puts ""
       return expiration
+
    end #/def
 end #/class

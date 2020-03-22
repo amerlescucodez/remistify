@@ -42,7 +42,19 @@ class RemistifyTest < Minitest::Test
 
   def test_negative_remiss
     #                                 remiss, issues_per_cycle, cycle_length, from
-    expiration = Remistify.expiration -1,     52,               T_1_YEAR,     "2019-12-21"
-    assert_equal "2019-12-21", expiration.strftime("%Y-%m-%d")
-  end
+    expiration = Remistify.expiration((-1),     52,               T_1_YEAR,     "2019-12-21")
+    assert_equal "2019-12-13", expiration.strftime("%Y-%m-%d")
+  end #/def
+
+  def test_negative_two_remiss
+    #                                 remiss, issues_per_cycle, cycle_length, from
+    expiration = Remistify.expiration((-2),     6,               T_1_YEAR,     "2019-12-21")
+    assert_equal "2019-08-21", expiration.strftime("%Y-%m-%d")
+  end #/def
+
+  def test_negative_two_remiss_annual
+    #                                 remiss, issues_per_cycle, cycle_length, from
+    expiration = Remistify.expiration((-2),     12,               T_1_YEAR,     "2019-12-01")
+    assert_equal "2019-10-01", expiration.strftime("%Y-%m-%d")
+  end #/def
 end #/class
