@@ -8,5 +8,5 @@ Gem::Specification.new do |s|
   s.email       = 'andrei@merlescu.net'
   s.files       = ["lib/remistify.rb"]
   s.homepage    = 'https://github.com/amerlescucodez/remistify'
-  s.license       = 'Proprietary Intellectual Property owned by Andrei Merlescu'
+  s.license       = 'GPLv3'
 end
